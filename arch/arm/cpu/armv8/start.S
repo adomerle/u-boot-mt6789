@@ -52,6 +52,21 @@ _bss_start_ofs:
 _bss_end_ofs:
 	.quad	__bss_end - _start
 
+fb_prepare:
+	movk x0, #0xFE0D, lsl #16 /* fb addr (0xFE0D0000) */
+	mov x1, #0xFFFFFFFF       /* ARGB white */
+	mov x2, #0x0              /* loop counter */
+	movz x3, #0x278D          /* fb size */
+	lsl x3, x3, #8            /* 0x278D00 */
+fb_write_loop:
+	str x1, [x0]              /* fb write */
+	add x0, x0, #0x4          /* next pixel */
+	add x2, x2, #0x1          /* loop counter increment */
+	cmp x2, x3                /* check loop end */
+	blt fb_write_loop
+stop:
+	b stop
+
 reset:
 	/* Allow the board to save important registers */
 	b	save_boot_params
