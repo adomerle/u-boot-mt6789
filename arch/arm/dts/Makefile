@@ -1216,7 +1216,8 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += \
 	mt8183-pumpkin.dtb \
 	mt8512-bm1-emmc.dtb \
 	mt8516-pumpkin.dtb \
-	mt8518-ap1-emmc.dtb
+	mt8518-ap1-emmc.dtb \
+	mt6789-xiaomi-emerald.dtb
 
 dtb-$(CONFIG_ARCH_NPCM7xx) += nuvoton-npcm750-evb.dtb
 dtb-$(CONFIG_ARCH_NPCM8XX) += nuvoton-npcm845-evb.dtb
