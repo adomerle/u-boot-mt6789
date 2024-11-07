@@ -113,10 +113,21 @@ config TARGET_MT8518
 	  Ethernet, IR TX/RX, I2C, I2S, S/PDIF, and built-in Wi-Fi / Bluetooth combo
 	  chip and several DDR3 and DDR4 options.
 
+config TARGET_MT6789
+	bool "MediaTek MT6789 SoC"
+	select ARM64
+	select LINUX_KERNEL_IMAGE_HEADER
+	help
+	  The MediaTek MT6789 is a ARM64-based SoC for smartphones with
+	  2x Cortex-A76 and 6x Cortex-A55 including UART, SPI, USB 2.0 dual-role,
+	  SD/MMC cards, UFS 2.2, video encoding and LPDDR4x DRAM.
+
+
 endchoice
 
 config SYS_BOARD
 	string "Board name"
+	default "mt6789" if TARGET_MT6789
 	default "mt7622" if TARGET_MT7622
 	default "mt7623" if TARGET_MT7623
 	default "mt7629" if TARGET_MT7629
@@ -134,6 +145,7 @@ config SYS_BOARD
 	  be used.
 
 config SYS_CONFIG_NAME
+	default "mt6789" if TARGET_MT6789
 	default "mt7622" if TARGET_MT7622
 	default "mt7623" if TARGET_MT7623
 	default "mt7629" if TARGET_MT7629
@@ -151,6 +163,9 @@ config MTK_BROM_HEADER_INFO
 	default "media=nor" if TARGET_MT8518 || TARGET_MT8512 || TARGET_MT7629 || TARGET_MT7622
 	default "media=emmc" if TARGET_MT8516 || TARGET_MT8365 || TARGET_MT8183
 	default "media=snand;nandinfo=2k+64" if TARGET_MT7981 || TARGET_MT7986 || TARGET_MT7988
-	default "lk=1" if TARGET_MT7623
+	default "lk=1" if TARGET_MT7623 || TARGET_MT6789
+
+config LNX_KRNL_IMG_TEXT_OFFSET_BASE
+        default TEXT_BASE if TARGET_MT6789
 
 endif
